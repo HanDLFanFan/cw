@@ -6,6 +6,6 @@ package com.cw.chwo.util;
 public class IPUtil {
 
     public static String getIPAdress(){
-        return "haha";
+        return "sasa";
     }
 }
