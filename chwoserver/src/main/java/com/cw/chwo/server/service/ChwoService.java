@@ -1,9 +1,9 @@
-package com.cw.chwo.server;
+package com.cw.chwo.server.service;
 
 /**
  * Created by handl on 2017/5/20.
  */
 public interface ChwoService {
 
-    void say();
+    String say(String name);
 }
