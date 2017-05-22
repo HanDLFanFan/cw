@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
  *          Environment ： 可以引用properties属性，（参考server项目）
  */
 @Configuration
-public class SpringConfig {
+public class WebSpringConfig {
     @Autowired
     private Environment environment;
 
