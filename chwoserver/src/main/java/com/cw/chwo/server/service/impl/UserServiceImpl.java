@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by handl on 2017/5/22.
  */
-@Component
+@Service
 public class UserServiceImpl implements UserService{
 
     @Override
