@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogAspect {
 
-    @Pointcut("execution(* com.cw.chwo.server.service.impl.ChwoServiceImpl.*(..))")
+    @Pointcut("execution(* com.cw.chwo.server.service.impl.UserServiceImpl.*(..))")
     public void pointcut(){
 
     }
