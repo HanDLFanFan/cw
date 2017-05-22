@@ -12,16 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("userhome")
 public class UserHomeController {
 
-    @RequestMapping
+    @RequestMapping()
     public ModelAndView userHome(){
-        ModelAndView modelAndView = new ModelAndView("userhome");
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("username","handl");
         return modelAndView;
     }
 
-    @RequestMapping("hase")
+    @RequestMapping("index")
     public ModelAndView hase(User vo){
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("state","haha! nai si to mi te you");
         return modelAndView;
     }
