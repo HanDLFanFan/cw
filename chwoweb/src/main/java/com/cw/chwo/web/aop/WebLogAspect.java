@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class LogAspect {
+public class WebLogAspect {
 
     @Pointcut("execution(* com.cw.chwo.web.controller.UserHomeController.*(..))")
     public void pointcut(){
