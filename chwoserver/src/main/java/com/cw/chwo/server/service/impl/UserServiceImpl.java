@@ -2,12 +2,13 @@ package com.cw.chwo.server.service.impl;
 
 import com.cw.chwo.server.pojo.User;
 import com.cw.chwo.server.service.UserService;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
  * Created by handl on 2017/5/22.
  */
-@Service
+@Component
 public class UserServiceImpl implements UserService{
 
     @Override
