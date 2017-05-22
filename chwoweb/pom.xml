@@ -66,10 +66,6 @@
             <artifactId>chwo-server</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>spring-mock</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <finalName>chwo-web</finalName>

@@ -7,6 +7,15 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by handl on 2017/5/21.
+ *
+ * AOP切面编程配置：
+ *      艾特Aspect：启用AOP注解
+ *      艾特Component： 设置此类为spring组件
+ *      艾特Pointcut(切点) ：配置作用的连接点，所作用的方法只做个锚点，然后就可在通知方法注解中使用，而无需配置多次。
+ *      艾特Before("@Pointcut标注的方法(切点)")
+ *      艾特Around("@Pointcut标注的方法(切点)")
+ *      ProceedingJoinPoint：只能在@Around中使用，可以获取参数或者返回值
+ *      JoinPoint ：
  */
 @Aspect
 @Component

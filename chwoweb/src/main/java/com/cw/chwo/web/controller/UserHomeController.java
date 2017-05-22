@@ -1,9 +1,8 @@
 package com.cw.chwo.web.controller;
 
-import com.cw.chwo.web.vo.UserVo;
+import com.cw.chwo.server.pojo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -21,7 +20,7 @@ public class UserHomeController {
     }
 
     @RequestMapping("hase")
-    public ModelAndView hase(UserVo vo){
+    public ModelAndView hase(User vo){
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("state","haha! nai si to mi te you");
         return modelAndView;
