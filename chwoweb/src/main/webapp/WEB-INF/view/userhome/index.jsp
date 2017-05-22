@@ -6,14 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>用户首页</title>
 </head>
 <body>
     <div>
         <span>
-            ${state},this is index!
+           <a href="/reg.jsp"></a>
         </span>
     </div>
 

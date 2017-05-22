@@ -1,6 +1,8 @@
 package com.cw.chwo.web.controller;
 
 import com.cw.chwo.server.pojo.User;
+import com.cw.chwo.server.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,17 +14,19 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("userhome")
 public class UserHomeController {
 
-    @RequestMapping()
-    public ModelAndView userHome(){
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping("reg")
+    public ModelAndView reg(User vo){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("username","handl");
+        String msg = userService.reg(vo);
+        modelAndView.addObject("msg",msg);
         return modelAndView;
     }
 
     @RequestMapping("index")
-    public ModelAndView hase(User vo){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("state","haha! nai si to mi te you "+vo.getName());
-        return modelAndView;
+    public String index(User vo){
+        return "userhome/index";
     }
 }

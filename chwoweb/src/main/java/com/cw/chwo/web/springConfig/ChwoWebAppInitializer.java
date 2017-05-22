@@ -5,7 +5,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 /**
  * Created by handl on 2017/5/21.
  *
- * 此类用来配置spring容器，springWeb容器环境和配置DispatcherServlet请求路径映射
+ * 此类用来配置并加载spring容器，springWeb容器环境和配置DispatcherServlet请求路径映射
  *
  *   要点：
  *          在 Servlet 3.0 环境中，容器会在类路径中查找实现 javax.servlet.ServletContainerInitializer 接口的类，
