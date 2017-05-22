@@ -19,8 +19,13 @@ public class UserHomeController {
     private UserService userService;
 
     @RequestMapping("reg")
-    public ModelAndView reg(User vo){
-        ModelAndView modelAndView = new ModelAndView();
+    public String reg(User vo){
+        return "userhome/reg";
+    }
+
+    @RequestMapping("regok")
+    public ModelAndView regok(User vo){
+        ModelAndView modelAndView = new ModelAndView("userhome/regok");
         String msg = userService.reg(vo);
         modelAndView.addObject("msg",msg);
         return modelAndView;

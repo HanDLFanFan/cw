@@ -26,24 +26,24 @@ public class LogAspect {
 
     }
 
-    @Before("pointcut()")
+    /*@Before("pointcut()")
     public void requestCheck(JoinPoint joinPoint){
         Object[] obj = joinPoint.getArgs();
         for (int i = 0; i <obj.length ; i++) {
             System.out.println("this is requestCheck,"+(String) obj[i]);
         }
-    }
+    }*/
 
-    @AfterReturning(pointcut = "pointcut()",returning="returnValue")
+    /*@AfterReturning(pointcut = "pointcut()",returning="returnValue")
     public void responCheck(JoinPoint joinPoint,Object returnValue){
         Object[] obj = joinPoint.getArgs();
         for (int i = 0; i <obj.length ; i++) {
             System.out.println("this is responCheck,"+(String) obj[i]);
         }
         System.out.println("respon return is,"+returnValue);
-    }
+    }*/
 
-    @Around("pointcut()")
+    /*@Around("pointcut()")
     public void around(ProceedingJoinPoint joinPoint){
         Object[] obj = joinPoint.getArgs();
         for (int i = 0; i <obj.length ; i++) {
@@ -57,5 +57,5 @@ public class LogAspect {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-    }
+    }*/
 }

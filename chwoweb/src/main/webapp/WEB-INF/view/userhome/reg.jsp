@@ -12,12 +12,12 @@
     <title>注册页面</title>
 </head>
 <body>
-    <sf:form action="<%= request.getContextPath() %>/userhome/reg" method="get" >
-        输入名称:<sf:input id="name" name="name" path="name" /><br/>
-        输入密码:<sf:password d="password" name="password" path="password"/><br/>
-        输入邮箱:<sf:input d="email" name="email" path="email"/><br/>
-        <sf:button value="ok"/>
-    </sf:form>
+    <form action="/userhome/regok" method="get" >
+        输入名称:<input type="text" name="name" id="name" /><br/>
+        输入密码:<input type="password" name="password" id="password" /><br/>
+        输入邮箱:<input type="email" name="email" id="email" /><br/>
+        <button type="submit">ok</button>
+    </form>
 
 </body>
 </html>

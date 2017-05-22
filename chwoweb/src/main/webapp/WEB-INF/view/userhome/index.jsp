@@ -14,7 +14,7 @@
 <body>
     <div>
         <span>
-           <a href="/reg.jsp"></a>
+           <a href="/userhome/reg">注册哦!!!</a>
         </span>
     </div>
 
