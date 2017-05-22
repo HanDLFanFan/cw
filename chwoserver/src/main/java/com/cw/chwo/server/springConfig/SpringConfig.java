@@ -31,6 +31,8 @@ public class SpringConfig {
         User user = new User();
         user.setName(name);
         user.setAge(environment.getProperty("age",Integer.class));
+        user.setPassword(environment.getProperty("password"));
+        user.setEmail(environment.getProperty("email"));
         return user;
     }
 
