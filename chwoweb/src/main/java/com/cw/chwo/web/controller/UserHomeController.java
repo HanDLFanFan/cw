@@ -22,7 +22,7 @@ public class UserHomeController {
     @RequestMapping("index")
     public ModelAndView hase(User vo){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("state","haha! nai si to mi te you");
+        modelAndView.addObject("state","haha! nai si to mi te you "+vo.getName());
         return modelAndView;
     }
 }
