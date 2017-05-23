@@ -17,9 +17,9 @@ import org.springframework.context.annotation.*;
  *      艾特EnableAspectJAutoProxy：启动AOP自动代理
  */
 @Configuration
-@Import(com.cw.chwo.server.springConfig.SpringConfig.class)
+@Import(com.cw.chwo.server.springConfig.ChwoServerSpringContextConfig.class)
 @ComponentScan(basePackageClasses = MarkerInterface.class)
 @PropertySource("classpath:/system.properties")
 @EnableAspectJAutoProxy
-public class RootConfig {
+public class ChwoServerSpringRootConfig {
 }

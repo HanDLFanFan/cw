@@ -19,7 +19,7 @@ import org.springframework.core.env.Environment;
  *
  */
 @Configuration
-public class SpringConfig {
+public class ChwoServerSpringContextConfig {
     @Autowired
     private Environment environment;
     @Value("${name}")

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * Created by handl on 2017/5/21.
  *
- *    SpringWebConfig：SpringWeb容器环境的配置
+ *    ChwoWebSpringMvcConfig：SpringWeb容器环境的配置
  *          艾特Configuration：定义此文件为spring的java配置文件
  *          艾特EnableWebMvc：启用SpringMVC
  *          艾特ComponentScan：扫描controller包，通常这是controller组件的存放目录
@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.cw.chwo.web.controller")
-public class SpringWebConfig extends WebMvcConfigurerAdapter{
+public class ChwoWebSpringMvcConfig extends WebMvcConfigurerAdapter{
 
     @Bean
     public ViewResolver viewResolver(){

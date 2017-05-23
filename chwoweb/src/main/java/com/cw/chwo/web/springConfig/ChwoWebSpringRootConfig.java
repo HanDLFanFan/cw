@@ -13,10 +13,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  *      艾特EnableAspectJAutoProxy：启动AOP自动代理
  */
 @Configuration
-@Import({com.cw.chwo.web.springConfig.WebSpringConfig.class, com.cw.chwo.server.springConfig.RootConfig.class})
+@Import({com.cw.chwo.web.springConfig.ChwoWebSpringContextConfig.class, com.cw.chwo.server.springConfig.ChwoServerSpringRootConfig.class})
 @ComponentScan(basePackages = {"com.cw.chwo.web"},
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,
                 value = EnableWebMvc.class)})
 @EnableAspectJAutoProxy
-public class RootConfig {
+public class ChwoWebSpringRootConfig {
 }

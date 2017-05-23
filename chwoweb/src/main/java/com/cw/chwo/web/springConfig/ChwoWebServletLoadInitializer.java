@@ -1,6 +1,11 @@
 package com.cw.chwo.web.springConfig;
 
+import com.cw.chwo.web.common.filter.MyFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
 
 /**
  * Created by handl on 2017/5/21.
@@ -21,23 +26,60 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  *              返回的带有 @Configuration 注解的类将会用来定义 DispatcherServlet 应用上下文中的 bean
  *      getServletMappings ： 配置DispatcherServlet请求路径映射
  *
+ *       customizeRegistration ：在 AbstractAnnotation-ConfigDispatcherServletInitializer 将
+ *              DispatcherServlet 注册到 Servlet 容器中之后，就会调用 customizeRegistration() ，
+ *              并将 Servlet 注册后得到的 Registration.Dynamic 传递进来。
+ *              通过重载 customizeRegistration() 方法，我们可以对 DispatcherServlet 进行额外的配置
+ *
  *      也就是说这个类是来加载spring的容器环境
  *
  */
-public class ChwoWebAppInitializer extends
+public class ChwoWebServletLoadInitializer extends
         AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{RootConfig.class};
+        return new Class[]{ChwoWebSpringRootConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{SpringWebConfig.class};
+        return new Class[]{ChwoWebSpringMvcConfig.class};
     }
 
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    /**
+     * 重载 customizeRegistration() 方法，我们可以对 DispatcherServlet 进行额外的配置
+     * @param registration
+     */
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        //文件上传属性配置
+        regMultipartConfig(registration);
+    }
+
+    /**
+     * 文件上传属性配置
+     * @param registration
+     */
+    private void regMultipartConfig(ServletRegistration.Dynamic registration){
+        registration.setMultipartConfig(new MultipartConfigElement("D:/files/",
+                2100000,4200000,0));
+    }
+
+    /**
+     * 注册Filter(只有和DispatcherServlet相同映射时才可以这样配置，
+     *      否则请查看ChwoWebServletInitializer类的regFilter方法)
+     *
+     *  如果只是注册 Filter ，并且该 Filter 只会映射到 DispatcherServlet 上的话，
+     *  那么在 AbstractAnnotationConfigDispatcherServletInitializer 中还有一种快捷方式
+     *  请查看ChwoWebServletLoadInitializer类的 getServletFilters() 方法
+     */
+    @Override
+    protected Filter[] getServletFilters() {
+       return new Filter[]{ new MyFilter() };
     }
 }
