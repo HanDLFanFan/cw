@@ -22,7 +22,7 @@ public class ChwoWebServletInitializer implements WebApplicationInitializer{
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         //注册servlet
-        regServlet(servletContext);
+//        regServlet(servletContext);
         //注册Filter
 //        regFilter(servletContext);
     }

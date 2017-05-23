@@ -78,8 +78,8 @@ public class ChwoWebServletLoadInitializer extends
      *  那么在 AbstractAnnotationConfigDispatcherServletInitializer 中还有一种快捷方式
      *  请查看ChwoWebServletLoadInitializer类的 getServletFilters() 方法
      */
-    @Override
+    /*@Override
     protected Filter[] getServletFilters() {
        return new Filter[]{ new MyFilter() };
-    }
+    }*/
 }

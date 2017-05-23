@@ -26,9 +26,9 @@ public class ChwoWebSpringContextConfig {
      * @return
      * @throws IOException
      */
-    @Bean
+    /*@Bean
     public MultipartResolver multipartResolver()throws IOException{
         return new StandardServletMultipartResolver();
-    }
+    }*/
 
 }
