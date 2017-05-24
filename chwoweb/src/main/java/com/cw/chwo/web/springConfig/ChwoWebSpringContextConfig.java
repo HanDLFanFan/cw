@@ -25,6 +25,9 @@ public class ChwoWebSpringContextConfig {
      * 注册文件上传组件
      * @return
      * @throws IOException
+     *
+     * 如果在编写控制器方法的时候，通过 Part 参数的形式接受文件上传，那么就没有必要配置 MultipartResolver 了。只有使
+    用 MultipartFile 的时候，我们才需要 MultipartResolver
      */
     /*@Bean
     public MultipartResolver multipartResolver()throws IOException{
