@@ -1,5 +1,6 @@
 package com.cw.chwo.web.springConfig;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,4 +35,35 @@ public class ChwoWebSpringContextConfig {
         return new StandardServletMultipartResolver();
     }*/
 
+    @Bean(initMethod = "init",destroyMethod = "close")
+    public DruidDataSource druidDataSource(){
+        DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setDriverClassName(environment.getProperty(""));
+        druidDataSource.setUrl(environment.getProperty(""));
+        druidDataSource.setUsername(environment.getProperty(""));
+        druidDataSource.setPassword(environment.getProperty(""));
+//        druidDataSource.setInitialSize(environment.getProperty(""));
+//        druidDataSource.setMaxActive(environment.getProperty(""));
+//        druidDataSource.setMinIdle(environment.getProperty(""));
+//        druidDataSource.setMaxWait(environment.getProperty(""));
+//        druidDataSource.setTimeBetweenEvictionRunsMillis(environment.getProperty(""));
+//        druidDataSource.setMinEvictableIdleTimeMillis(environment.getProperty(""));
+        druidDataSource.setValidationQuery(environment.getProperty(""));
+        druidDataSource.setTestWhileIdle(true);
+        druidDataSource.setTestOnBorrow(false);
+        druidDataSource.setTestOnReturn(false);
+        druidDataSource.setRemoveAbandoned(true);
+//        druidDataSource.setRemoveAbandonedTimeout(environment.getProperty(""));
+        druidDataSource.setLogAbandoned(true);
+        /*druidDataSource.setFilters(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));
+        druidDataSource(environment.getProperty(""));*/
+        return druidDataSource;
+    }
 }
