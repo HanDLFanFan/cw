@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class WebControllerAdvice {
 
-    @ExceptionHandler
+    /*@ExceptionHandler
     public Object exceptionHandler(){
         return new Object();
-    }
+    }*/
 }

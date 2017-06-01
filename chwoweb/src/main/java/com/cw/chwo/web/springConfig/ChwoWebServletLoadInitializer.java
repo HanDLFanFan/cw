@@ -1,9 +1,7 @@
 package com.cw.chwo.web.springConfig;
 
-import com.cw.chwo.web.common.filter.MyFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 

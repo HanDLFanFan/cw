@@ -1,10 +1,17 @@
 package com.cw.chwo.web.springConfig;
 
 import com.cw.chwo.web.common.filter.MyFilter;
+import com.cw.chwo.web.common.listener.MyListener;
 import com.cw.chwo.web.common.servlet.MyServlet;
+import org.springframework.jmx.access.NotificationListenerRegistrar;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.servlet.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -19,12 +26,21 @@ import javax.servlet.*;
  *
  */
 public class ChwoWebServletInitializer implements WebApplicationInitializer{
+
+    private static Map<String,Class<?>> filter;
+
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
+
         //注册servlet
-//        regServlet(servletContext);
+        regServlet(servletContext);
+        //加载Filter
+        initFilter();
         //注册Filter
-//        regFilter(servletContext);
+        regFilter(servletContext);
+        //注册Listen
+        regListener(servletContext);
     }
 
     /**
@@ -39,6 +55,12 @@ public class ChwoWebServletInitializer implements WebApplicationInitializer{
         myServlet.addMapping("/controller/**");
     }
 
+
+    private void initFilter(){
+        filter = new HashMap();
+        filter.put("encoding", CharacterEncodingFilter.class);
+        filter.put("myFilter",MyFilter.class);
+    }
     /**
      * 注册Filter
      * @param servletContext
@@ -48,15 +70,19 @@ public class ChwoWebServletInitializer implements WebApplicationInitializer{
      *  请查看ChwoWebServletLoadInitializer类的 getServletFilters() 方法
      */
     private void regFilter(ServletContext servletContext){
-        //注册Filter
-        FilterRegistration.Dynamic myFilter = servletContext
-                .addFilter("myFilter", MyFilter.class);
-        //映射Filter
-        myFilter.addMappingForUrlPatterns(null,false,"/controller/**");
+        if ( filter!= null && filter.size() > 0 ){
+            for (String key : filter.keySet()) {
+                FilterRegistration.Dynamic myFilter = servletContext
+                        .addFilter(key, (Class<? extends Filter>) filter.get(key));
+                //映射Filter
+                myFilter.addMappingForUrlPatterns(null,false,"/*");
+            }
+        }
     }
 
     private void regListener(ServletContext servletContext){
 
+        servletContext.addListener(MyListener.class);
     }
 
 }

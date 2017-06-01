@@ -35,7 +35,7 @@ public class ChwoWebSpringContextConfig {
         return new StandardServletMultipartResolver();
     }*/
 
-    @Bean(initMethod = "init",destroyMethod = "close")
+   /* @Bean(initMethod = "init",destroyMethod = "close")
     public DruidDataSource druidDataSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setDriverClassName(environment.getProperty(""));
@@ -55,7 +55,7 @@ public class ChwoWebSpringContextConfig {
         druidDataSource.setRemoveAbandoned(true);
 //        druidDataSource.setRemoveAbandonedTimeout(environment.getProperty(""));
         druidDataSource.setLogAbandoned(true);
-        /*druidDataSource.setFilters(environment.getProperty(""));
+        *//*druidDataSource.setFilters(environment.getProperty(""));
         druidDataSource(environment.getProperty(""));
         druidDataSource(environment.getProperty(""));
         druidDataSource(environment.getProperty(""));
@@ -63,7 +63,7 @@ public class ChwoWebSpringContextConfig {
         druidDataSource(environment.getProperty(""));
         druidDataSource(environment.getProperty(""));
         druidDataSource(environment.getProperty(""));
-        druidDataSource(environment.getProperty(""));*/
+        druidDataSource(environment.getProperty(""));*//*
         return druidDataSource;
-    }
+    }*/
 }
