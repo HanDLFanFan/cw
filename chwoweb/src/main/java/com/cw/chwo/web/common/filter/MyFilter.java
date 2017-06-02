@@ -1,7 +1,5 @@
 package com.cw.chwo.web.common.filter;
 
-import com.alibaba.druid.filter.config.ConfigFilter;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
