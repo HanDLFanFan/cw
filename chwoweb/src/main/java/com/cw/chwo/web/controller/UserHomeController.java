@@ -1,8 +1,7 @@
 package com.cw.chwo.web.controller;
 
-import com.cw.chwo.server.pojo.User;
+import com.cw.chwo.module.User;
 import com.cw.chwo.server.service.UserService;
-import com.cw.chwo.server.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

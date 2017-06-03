@@ -50,9 +50,10 @@
     <modules>
         <!-- module的值是当前pom的相对子模块目录 -->
         <module>chwoutil</module>
-        <module>chwocore</module>
         <module>chwoserver</module>
         <module>chwoweb</module>
+        <module>chwomodule</module>
+        <module>chwodao</module>
     </modules>
 
     <!-- 自定义Maven变量属性 -->
@@ -150,7 +151,32 @@
                 <artifactId>druid</artifactId>
                 <version>1.0.31</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.4.4</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>1.3.1</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-core</artifactId>
+                <version>1.3.5</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/tk.mybatis/mapper -->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper</artifactId>
+                <version>3.4.0</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
 

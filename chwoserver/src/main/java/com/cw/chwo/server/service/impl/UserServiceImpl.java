@@ -1,8 +1,7 @@
 package com.cw.chwo.server.service.impl;
 
-import com.cw.chwo.server.pojo.User;
+import com.cw.chwo.module.User;
 import com.cw.chwo.server.service.UserService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**

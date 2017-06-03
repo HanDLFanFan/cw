@@ -1,6 +1,6 @@
 package com.cw.chwo.server.service;
 
-import com.cw.chwo.server.pojo.User;
+import com.cw.chwo.module.User;
 
 /**
  * Created by handl on 2017/5/22.
