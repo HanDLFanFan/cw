@@ -1,6 +1,8 @@
 package com.cw.chwo.springconfig;
 
 import com.cw.chwo.MarkerInterface;
+import com.cw.shwo.springconfig.DaoSpringRootConfig;
+import com.cw.shwo.springconfig.DaoSpringdbConfig;
 import org.springframework.context.annotation.*;
 
 /**
@@ -17,7 +19,7 @@ import org.springframework.context.annotation.*;
  *      艾特EnableAspectJAutoProxy：启动AOP自动代理
  */
 @Configuration
-@Import({ServerSpringContextConfig.class,DaoSpringRootConfig.class})
+@Import({ServerSpringContextConfig.class, DaoSpringRootConfig.class})
 @ComponentScan(basePackageClasses = MarkerInterface.class)
 @PropertySource("classpath:/system.properties")
 @EnableAspectJAutoProxy

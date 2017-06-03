@@ -1,12 +1,11 @@
 package com.cw.chwo.service.impl;
 
-import com.cw.chwo.mapper.UserDao;
 import com.cw.chwo.module.User;
 import com.cw.chwo.service.UserService;
+import com.cw.shwo.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 
 /**
  * Created by handl on 2017/5/22.
@@ -14,7 +13,7 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
+    @Autowired(required = false)
     private UserDao userDao;
 
 
