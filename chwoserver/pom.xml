@@ -62,6 +62,11 @@
             <groupId>${springframework.name}</groupId>
             <artifactId>spring-aspects</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+        <dependency>
+            <groupId>${springframework.name}</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>chwo-util</artifactId>
@@ -70,6 +75,11 @@
         <dependency>
             <groupId>com.cw.chwo</groupId>
             <artifactId>chwo-module</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cw.chwo</groupId>
+            <artifactId>chwo-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
