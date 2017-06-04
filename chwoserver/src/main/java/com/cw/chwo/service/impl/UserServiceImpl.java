@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired(required = false)
     private UserDao userDao;
 
 

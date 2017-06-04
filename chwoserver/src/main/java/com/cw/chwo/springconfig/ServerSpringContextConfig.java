@@ -1,7 +1,10 @@
 package com.cw.chwo.springconfig;
 
+import com.cw.chwo.service.UserService;
+import com.cw.chwo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
@@ -20,5 +23,15 @@ public class ServerSpringContextConfig {
     private Environment environment;
     @Value("${name}")
     private String name;
+
+    @Bean
+    public UserService userService(){
+        System.out.println(environment.getProperty("db.name"));
+        System.out.println(environment.getProperty("age"));
+        System.out.println(environment.getProperty("email"));
+        System.out.println(environment.getProperty("password"));
+
+        return new UserServiceImpl();
+    }
 
 }

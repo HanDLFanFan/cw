@@ -2,7 +2,6 @@ package com.cw.chwo.springconfig;
 
 import com.cw.chwo.MarkerInterface;
 import com.cw.shwo.springconfig.DaoSpringRootConfig;
-import com.cw.shwo.springconfig.DaoSpringdbConfig;
 import org.springframework.context.annotation.*;
 
 /**

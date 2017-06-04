@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
+/*
  * Created by handl on 2017/5/23.
  *
  *      按照 AbstractAnnotationConfigDispatcherServletInitializer 的定义，它会创建
@@ -20,8 +20,9 @@ import java.util.Map;
         基于 Java 的初始化器（ initializer ）的一个好处就在于我们可以定义任意数量的初始化器类。
             因此，如果我们想往 Web 容器中注册其他组件的话，只需创建一个新的初始化器就可以了。
             最简单的方式就是实现 Spring 的 WebApplicationInitializer 接口。
- *
  */
+
+
 public class WebServletInitializer implements WebApplicationInitializer{
 
     private static Map<String,Class<?>> filter;
@@ -40,16 +41,17 @@ public class WebServletInitializer implements WebApplicationInitializer{
         regListener(servletContext);
     }
 
-    /**
+    /*
      * 注册servlet
      * @param servletContext
      */
+
     private void regServlet(ServletContext servletContext){
         //注册servlet
         ServletRegistration.Dynamic myServlet = servletContext.
                 addServlet("myServlet", MyServlet.class);
         //映射servlet
-        myServlet.addMapping("/controller/**");
+        myServlet.addMapping("/controller*");
     }
 
 
@@ -58,7 +60,7 @@ public class WebServletInitializer implements WebApplicationInitializer{
         filter.put("encoding", CharacterEncodingFilter.class);
         filter.put("myFilter",MyFilter.class);
     }
-    /**
+    /*
      * 注册Filter
      * @param servletContext
      *
@@ -66,6 +68,7 @@ public class WebServletInitializer implements WebApplicationInitializer{
      *  那么在 AbstractAnnotationConfigDispatcherServletInitializer 中还有一种快捷方式
      *  请查看ChwoWebServletLoadInitializer类的 getServletFilters() 方法
      */
+
     private void regFilter(ServletContext servletContext){
         if ( filter!= null && filter.size() > 0 ){
             for (String key : filter.keySet()) {

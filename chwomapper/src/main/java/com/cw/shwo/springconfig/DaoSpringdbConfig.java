@@ -5,12 +5,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -18,17 +20,21 @@ import java.sql.SQLException;
  * Created by handl on 2017/6/3.
  */
 @Configuration
-@PropertySource("classpath:/database.properties")
-public class DaoSpringdbConfig {
+public class DaoSpringdbConfig implements EnvironmentAware {
 
-    @Autowired
     private Environment environment;
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
 
     /**
      * 配置druid连接池
      * @return
      */
-    /*@Bean
+    @Bean
     public DruidDataSource druidDataSource() throws SQLException {
         DruidDataSource druidDataSource = new DruidDataSource();
         //驱动类名称
@@ -63,27 +69,15 @@ public class DaoSpringdbConfig {
         druidDataSource.setTimeBetweenEvictionRunsMillis(Long.valueOf(environment.getProperty("db.timebetweenevictionrunsmillis")));
         //属性类型是字符串，通过别名的方式配置扩展插件
         druidDataSource.setFilters(environment.getProperty("db.filters"));
-        return druidDataSource;
-    }*/
-
-    @Bean
-    public DruidDataSource druidDataSource() throws SQLException {
-        DruidDataSource druidDataSource = new DruidDataSource();
-        //驱动类名称
-        druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        //数据库地址
-        druidDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/chwo");
-        //用户名
-        druidDataSource.setUsername("root");
-        //密码
-        druidDataSource.setPassword("root");
+        System.out.println("druidDataSource ====="+druidDataSource.hashCode());
         return druidDataSource;
     }
 
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException, SQLException {
+    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) throws IOException, SQLException {
+        System.out.println("DataSource ====="+dataSource.hashCode());
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-        sessionFactoryBean.setDataSource(druidDataSource());
+        sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setTypeAliasesPackage("com.cw.chwo.mapper");
         sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper*//*.xml"));
         return sessionFactoryBean;

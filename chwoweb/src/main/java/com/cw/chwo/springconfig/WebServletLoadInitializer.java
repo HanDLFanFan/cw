@@ -5,7 +5,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
-/**
+/*
  * Created by handl on 2017/5/21.
  *
  * 此类用来配置并加载spring容器，springWeb容器环境和配置DispatcherServlet请求路径映射
@@ -30,8 +30,9 @@ import javax.servlet.ServletRegistration;
  *              通过重载 customizeRegistration() 方法，我们可以对 DispatcherServlet 进行额外的配置
  *
  *      也就是说这个类是来加载spring的容器环境
- *
  */
+
+
 public class WebServletLoadInitializer extends
         AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
@@ -49,26 +50,28 @@ public class WebServletLoadInitializer extends
         return new String[]{"/"};
     }
 
-    /**
+    /*
      * 重载 customizeRegistration() 方法，我们可以对 DispatcherServlet 进行额外的配置
      * @param registration
      */
+
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         //文件上传属性配置
         regMultipartConfig(registration);
     }
 
-    /**
+    /*
      * 文件上传属性配置
      * @param registration
      */
+
     private void regMultipartConfig(ServletRegistration.Dynamic registration){
         registration.setMultipartConfig(new MultipartConfigElement("D:/files/",
                 2100000,4200000,0));
     }
 
-    /**
+    /*
      * 注册Filter(只有和DispatcherServlet相同映射时才可以这样配置，
      *      否则请查看ChwoWebServletInitializer类的regFilter方法)
      *
@@ -76,8 +79,10 @@ public class WebServletLoadInitializer extends
      *  那么在 AbstractAnnotationConfigDispatcherServletInitializer 中还有一种快捷方式
      *  请查看ChwoWebServletLoadInitializer类的 getServletFilters() 方法
      */
+
     /*@Override
     protected Filter[] getServletFilters() {
        return new Filter[]{ new MyFilter() };
     }*/
+
 }
