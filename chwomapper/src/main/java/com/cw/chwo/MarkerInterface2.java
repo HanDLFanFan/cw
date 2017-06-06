@@ -1,4 +1,4 @@
-package com.cw.shwo;
+package com.cw.chwo;
 
 import org.springframework.stereotype.Component;
 

@@ -2,7 +2,7 @@ package com.cw.chwo.service.impl;
 
 import com.cw.chwo.module.User;
 import com.cw.chwo.service.UserService;
-import com.cw.shwo.mapper.UserDao;
+import com.cw.chwo.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService{
 
+    @Autowired
     private UserDao userDao;
 
 

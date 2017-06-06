@@ -1,6 +1,6 @@
-package com.cw.shwo.springconfig;
+package com.cw.chwo.springconfig;
 
-import com.cw.shwo.MarkerInterface2;
+import com.cw.chwo.MarkerInterface2;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

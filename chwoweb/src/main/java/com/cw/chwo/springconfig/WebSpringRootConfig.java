@@ -1,6 +1,5 @@
 package com.cw.chwo.springconfig;
 
-import com.cw.shwo.springconfig.DaoSpringRootConfig;
 import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 

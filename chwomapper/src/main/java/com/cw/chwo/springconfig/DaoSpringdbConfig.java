@@ -1,11 +1,8 @@
-package com.cw.shwo.springconfig;
+package com.cw.chwo.springconfig;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -74,11 +71,11 @@ public class DaoSpringdbConfig implements EnvironmentAware {
     }
 
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) throws IOException, SQLException {
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException, SQLException {
         System.out.println("DataSource ====="+dataSource.hashCode());
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
-        sessionFactoryBean.setTypeAliasesPackage("com.cw.chwo.mapper");
+//        sessionFactoryBean.setTypeAliasesPackage("com.cw.chwo.mapper");
         sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
         return sessionFactoryBean;
     }
@@ -87,7 +84,7 @@ public class DaoSpringdbConfig implements EnvironmentAware {
     public MapperScannerConfigurer mapperScannerConfigurer(){
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setBasePackage("com.cw.chwo.mapper");
-        mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
+        mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
         return mapperScannerConfigurer;
     }
 }
