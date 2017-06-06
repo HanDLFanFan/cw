@@ -79,7 +79,7 @@ public class DaoSpringdbConfig implements EnvironmentAware {
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setTypeAliasesPackage("com.cw.chwo.mapper");
-        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper*//*.xml"));
+        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
         return sessionFactoryBean;
     }
 
@@ -88,7 +88,6 @@ public class DaoSpringdbConfig implements EnvironmentAware {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setBasePackage("com.cw.chwo.mapper");
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
-        mapperScannerConfigurer.setAnnotationClass(Mapper.class);
         return mapperScannerConfigurer;
     }
 }
