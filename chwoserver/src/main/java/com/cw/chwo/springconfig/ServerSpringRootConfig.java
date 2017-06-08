@@ -17,9 +17,9 @@ import org.springframework.context.annotation.*;
  *      艾特EnableAspectJAutoProxy：启动AOP自动代理
  */
 @Configuration
-@Import({ServerSpringContextConfig.class, DaoSpringRootConfig.class})
+@Import({ServerSpringContextConfig.class, DaoSpringRootConfig.class, ServerSpringRedisConfig.class})
 @ComponentScan(basePackageClasses = MarkerInterface.class)
-@PropertySource("classpath:/system.properties")
+@PropertySource("classpath:/redis.properties")
 @EnableAspectJAutoProxy
 public class ServerSpringRootConfig {
 }
