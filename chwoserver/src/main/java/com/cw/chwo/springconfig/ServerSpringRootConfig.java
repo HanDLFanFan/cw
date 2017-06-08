@@ -1,6 +1,7 @@
 package com.cw.chwo.springconfig;
 
 import com.cw.chwo.MarkerInterface;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 
 /**
@@ -15,9 +16,12 @@ import org.springframework.context.annotation.*;
  *              还可以设置包含和排除，（可在web项目里查看）
  *      艾特PropertySource：添加properties文件
  *      艾特EnableAspectJAutoProxy：启动AOP自动代理
+ *
  */
 @Configuration
-@Import({ServerSpringContextConfig.class, DaoSpringRootConfig.class, ServerSpringRedisConfig.class})
+@Import({ServerSpringContextConfig.class,
+            DaoSpringRootConfig.class,
+            ServerSpringRedisConfig.class})
 @ComponentScan(basePackageClasses = MarkerInterface.class)
 @PropertySource("classpath:/redis.properties")
 @EnableAspectJAutoProxy

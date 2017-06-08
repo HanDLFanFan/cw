@@ -1,9 +1,11 @@
 package com.cw.chwo.springconfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,8 +15,11 @@ import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * Created by handl on 2017/6/7.
+ *
+ *      艾特EnableCaching：启用注解驱动的缓存
  */
 @Configuration
+@EnableCaching
 public class ServerSpringRedisConfig {
 
     @Autowired
@@ -60,6 +65,12 @@ public class ServerSpringRedisConfig {
     @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory){
         return new StringRedisTemplate(redisConnectionFactory);
+    }
+
+    //创建redisCache管理器
+    @Bean
+    public RedisCacheManager redisCacheManager(RedisTemplate redisTemplate){
+        return new RedisCacheManager(redisTemplate);
     }
 
 }
