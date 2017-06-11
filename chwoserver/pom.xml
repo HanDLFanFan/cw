@@ -53,6 +53,16 @@
             <artifactId>spring-tx</artifactId>
         </dependency>
 
+        <!--  MQ  -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+
         <!--  Cache  -->
         <dependency>
             <groupId>redis.clients</groupId>
