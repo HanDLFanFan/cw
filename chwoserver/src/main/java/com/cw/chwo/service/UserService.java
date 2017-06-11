@@ -8,5 +8,5 @@ import com.cw.chwo.module.User;
 public interface UserService {
     String reg(User user);
 
-    User findUser();
+    User findUser(String id);
 }

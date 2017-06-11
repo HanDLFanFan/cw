@@ -4,6 +4,7 @@ import com.cw.chwo.module.User;
 import com.cw.chwo.service.UserService;
 import com.cw.chwo.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -35,24 +36,25 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUser() {
+    @Cacheable("user2")
+    public User findUser(String id) {
 
-        if (redisTemplate.hasKey("123")){
+        /*if (redisTemplate.hasKey(id)){
             System.out.println("redis have data");
-            BoundValueOperations<String,String> data = redisTemplate.boundValueOps("123");
+            BoundValueOperations<String,String> data = redisTemplate.boundValueOps(id);
             String[] userInfo = data.get().split(",");
             User user = new User();
             user.setName(userInfo[0]);
             user.setMobile(userInfo[1]);
             user.setAge(Integer.valueOf(userInfo[2]));
             return user;
-        }
+        }*/
 
         System.out.println("redis not have data");
-        User user = userDao.findUserById("123");
-        String userdata = user.getName()+","+user.getMobile()+","+user.getAge();
-        BoundValueOperations<String,String> data = redisTemplate.boundValueOps("123");
-        data.set(userdata);
+        User user = userDao.findUserById(id);
+//        String userdata = user.getName()+","+user.getMobile()+","+user.getAge();
+//        BoundValueOperations<String,String> data = redisTemplate.boundValueOps(id);
+//        data.set(userdata);
         return user;
     }
 }

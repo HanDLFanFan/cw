@@ -1,6 +1,7 @@
 package com.cw.chwo.common.controlleradvice;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
  * Created by handl on 2017/5/24.
@@ -23,8 +24,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @ControllerAdvice
 public class WebControllerAdvice {
 
-    /*@ExceptionHandler
-    public Object exceptionHandler(){
-        return new Object();
-    }*/
+//    @ExceptionHandler
+//    public String exceptionHandler(){
+//        return "error";
+//    }
 }
