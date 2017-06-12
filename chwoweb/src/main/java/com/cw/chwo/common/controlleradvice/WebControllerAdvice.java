@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
             这样所有控制器的异常就能在一个地方进行一致的处理。
  *
  */
-@ControllerAdvice
+//@ControllerAdvice
 public class WebControllerAdvice {
 
 //    @ExceptionHandler

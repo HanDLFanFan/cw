@@ -5,8 +5,6 @@ import com.cw.chwo.service.UserService;
 import com.cw.chwo.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.BoundValueOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +21,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+
     @Override
     public String reg(User user) {
 
@@ -30,6 +29,7 @@ public class UserServiceImpl implements UserService{
             System.out.println();
             System.out.println();
             System.out.println();
+//            mqUserService.sendMqToCreateUser(user);
             return "注册成功,欢迎"+user.getName();
         }
         return "注册失败";
@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService{
     @Override
     @Cacheable("user2")
     public User findUser(String id) {
-
         /*if (redisTemplate.hasKey(id)){
             System.out.println("redis have data");
             BoundValueOperations<String,String> data = redisTemplate.boundValueOps(id);

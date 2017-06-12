@@ -21,10 +21,9 @@ import org.springframework.context.annotation.*;
 @Configuration
 @Import({ServerSpringContextConfig.class,
             DaoSpringRootConfig.class,
-            ServerSpringRedisConfig.class,
-            ServerSpringMqConfig.class})
+            ServerSpringRedisConfig.class})
 @ComponentScan(basePackageClasses = MarkerInterface.class)
-@PropertySource({"classpath:/redis.properties","classpath:/mq.properties"})
+@PropertySource("classpath:/redis.properties")
 @EnableAspectJAutoProxy
 public class ServerSpringRootConfig {
 }
