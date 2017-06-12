@@ -66,14 +66,33 @@
         </dependency>
 
         <!--  MQ  -->
-
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jms</artifactId>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
+            <artifactId>activemq-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-kahadb-store</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.hawtbuf</groupId>
+            <artifactId>hawtbuf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${springframework.name}</groupId>
+            <artifactId>spring-jms</artifactId>
         </dependency>
 
         <!--  内部依赖  -->
@@ -91,6 +110,20 @@
             <groupId>com.cw.chwo</groupId>
             <artifactId>chwo-mapper</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!--  其他  -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
     </dependencies>
 

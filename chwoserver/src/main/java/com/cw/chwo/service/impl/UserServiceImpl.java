@@ -1,6 +1,7 @@
 package com.cw.chwo.service.impl;
 
 import com.cw.chwo.module.User;
+import com.cw.chwo.service.MqUserService;
 import com.cw.chwo.service.UserService;
 import com.cw.chwo.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @Autowired
+    private MqUserService mqUserService;
+
 
     @Override
     public String reg(User user) {
@@ -29,7 +33,7 @@ public class UserServiceImpl implements UserService{
             System.out.println();
             System.out.println();
             System.out.println();
-//            mqUserService.sendMqToCreateUser(user);
+            mqUserService.sendMqToCreateUser(user);
             return "注册成功,欢迎"+user.getName();
         }
         return "注册失败";
