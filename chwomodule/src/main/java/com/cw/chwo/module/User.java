@@ -64,4 +64,9 @@ public class User implements Serializable{
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    @Override
+    public String toString() {
+        return "id:"+this.getId()+",name:"+this.getName()+",age:"+this.getAge()+",mobile:"+this.getMobile()+",email:"+this.getEmail();
+    }
 }
