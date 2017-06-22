@@ -6,6 +6,7 @@ import com.cw.chwo.springconfig.viewresolver.JsonViewResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.accept.ContentNegotiationManager;
@@ -16,6 +17,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
+import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by handl on 2017/5/21.
@@ -44,8 +50,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-//        configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.TEXT_HTML);
-        configurer.defaultContentType(MediaType.TEXT_HTML);
+        configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.TEXT_HTML);
     }
 
     /**
@@ -56,6 +61,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     @Bean
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager){
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
+        resolver.setOrder(1);
         resolver.setContentNegotiationManager(manager);
         return resolver;
     }
@@ -81,15 +87,38 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         return new JsonViewResolver();
     }
 
+    /**
+     * jsp配置
+     * @return
+     */
     @Bean
-    public ViewResolver viewResolver(){
+    public ViewResolver jspViewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        //设置优先级
+        resolver.setOrder(10);
         resolver.setPrefix("/WEB-INF/view/");
         resolver.setSuffix(".jsp");
         //配置可以解释jstl视图的class
         resolver.setViewClass(org.springframework.web.servlet.view.JstlView.class);
         resolver.setExposeContextBeansAsAttributes(true);
         return resolver;
+    }
+
+    @Bean
+    public VelocityConfigurer velocityConfigurer(){
+        VelocityConfigurer velocityConfigurer = new VelocityConfigurer();
+        velocityConfigurer.setResourceLoaderPath("/WEB-INF/view/");
+        velocityConfigurer.setConfigLocation(new ClassPathResource("velocity.properties"));
+        return velocityConfigurer;
+    }
+
+    @Bean
+    public ViewResolver velocityViewResolver(){
+        VelocityViewResolver viewResolver = new VelocityViewResolver();
+        viewResolver.setOrder(2);
+        viewResolver.setSuffix(".vm");
+        viewResolver.setContentType("text/html;charset=UTF-8");
+        return viewResolver;
     }
 
     @Override

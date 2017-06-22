@@ -1,0 +1,9 @@
+<html>
+<head>
+</head>
+<body>
+velocity-name:${user.name}</br>
+velocity-age:${user.age}</br>
+velocity-mobile:${user.mobile}
+</body>
+</html>

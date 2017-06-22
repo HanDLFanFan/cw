@@ -46,12 +46,20 @@ public class UserHomeController {
         return "userhome/index";
     }
 
-    @RequestMapping(value = "findUser/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String findUser(@PathVariable String id, Model model){
+    @RequestMapping(value = "jspfindUser/{id}"/*,produces = MediaType.APPLICATION_JSON_VALUE*/)
+    public String jspfindUser(@PathVariable String id, Model model){
 
         User user = userService.findUser(id);
         model.addAttribute("user",user);
         return "userhome/userinfo";
+    }
+
+    @RequestMapping(value = "findUser/{id}"/*,produces = MediaType.APPLICATION_JSON_VALUE*/)
+    public String findUser(@PathVariable String id, Model model){
+
+        User user = userService.findUser(id);
+        model.addAttribute("user",user);
+        return "velocity/myvelocity";
     }
 
     @RequestMapping("restfulData")

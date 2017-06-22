@@ -1,12 +1,11 @@
 package com.cw.chwo.service.impl;
 
 import com.cw.chwo.common.jms.MqUserSender;
+import com.cw.chwo.mapper.UserDao;
 import com.cw.chwo.module.User;
 import com.cw.chwo.service.UserService;
-import com.cw.chwo.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 
@@ -20,7 +19,7 @@ public class UserServiceImpl implements UserService{
     private UserDao userDao;
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
     @Autowired
     private MqUserSender sender;
 
@@ -35,7 +34,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Cacheable("user2")
+//    @Cacheable("user2")
     public User findUser(String id) {
         /*if (redisTemplate.hasKey(id)){
             System.out.println("redis have data");
