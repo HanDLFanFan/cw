@@ -1,6 +1,5 @@
 package com.cw.chwo.springconfig;
 
-import com.cw.chwo.module.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +10,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -71,6 +69,11 @@ public class ServerSpringRedisConfig {
     @Autowired
     private Environment environment;
 
+    /**
+     * redis连接工厂
+     * @param jedisPoolConfig
+     * @return
+     */
     @Bean
     public RedisConnectionFactory redisConnectionFactory(JedisPoolConfig jedisPoolConfig){
         JedisConnectionFactory redisConnectionFactory = new JedisConnectionFactory();
@@ -81,6 +84,10 @@ public class ServerSpringRedisConfig {
         return redisConnectionFactory;
     }
 
+    /**
+     * redis连接池配置
+     * @return
+     */
     @Bean
     public JedisPoolConfig jedisPoolConfig(){
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
@@ -99,6 +106,11 @@ public class ServerSpringRedisConfig {
         return  jedisPoolConfig;
     }
 
+    /**
+     * redis模板配置
+     * @param redisConnectionFactory
+     * @return
+     */
     @Bean
     public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory){
         RedisTemplate redisTemplate = new RedisTemplate();
@@ -108,12 +120,21 @@ public class ServerSpringRedisConfig {
         return redisTemplate;
     }
 
+    /**
+     * redis模板配置
+     * @param redisConnectionFactory
+     * @return
+     */
     @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory){
         return new StringRedisTemplate(redisConnectionFactory);
     }
 
-    //创建redisCache管理器
+    /**
+     * 创建redisCache管理器
+     * @param redisTemplate
+     * @return
+     */
     @Bean
     public RedisCacheManager redisCacheManager(RedisTemplate redisTemplate){
         return new RedisCacheManager(redisTemplate);

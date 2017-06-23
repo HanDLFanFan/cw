@@ -20,9 +20,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by handl on 2017/5/21.
  *
@@ -38,6 +35,8 @@ import java.util.List;
  *          contentNegotiatingViewResolver(ContentNegotiationManager manager)：contentNegotiatingViewResolver添加ContentNegotiationManager
  *          jaxb2MarshallingXmlViewResolver()：配置xml视图解析类型
  *          jsonViewResolver()：配置json视图解析类型
+ *
+ *          注意：jsp视图的order一定要最大，放到最后执行，多视图解析器order最小，先执行
  */
 @Configuration
 @EnableWebMvc
@@ -50,11 +49,13 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        //ignoreAcceptHeader 排除请求头
         configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.TEXT_HTML);
     }
 
     /**
      * 配置ContentNegotiatingViewResolver
+     * 多视图解析器(json,xml...)，默认以后缀方式
      * @param manager
      * @return
      */
@@ -88,7 +89,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     }
 
     /**
-     * jsp配置
+     * jsp配置(内部资源视图)
      * @return
      */
     @Bean
@@ -104,6 +105,10 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         return resolver;
     }
 
+    /**
+     * velocity配置
+     * @return
+     */
     @Bean
     public VelocityConfigurer velocityConfigurer(){
         VelocityConfigurer velocityConfigurer = new VelocityConfigurer();
@@ -112,6 +117,10 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         return velocityConfigurer;
     }
 
+    /**
+     * velocity视图
+     * @return
+     */
     @Bean
     public ViewResolver velocityViewResolver(){
         VelocityViewResolver viewResolver = new VelocityViewResolver();
@@ -121,6 +130,10 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         return viewResolver;
     }
 
+    /**
+     * 静态资源处理
+     * @param configurer
+     */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();

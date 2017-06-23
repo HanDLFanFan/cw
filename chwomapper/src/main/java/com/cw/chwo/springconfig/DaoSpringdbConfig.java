@@ -70,6 +70,13 @@ public class DaoSpringdbConfig implements EnvironmentAware {
         return druidDataSource;
     }
 
+    /**
+     * Session工厂
+     * @param dataSource
+     * @return
+     * @throws IOException
+     * @throws SQLException
+     */
     @Bean
     public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws IOException, SQLException {
         System.out.println("DataSource ====="+dataSource.hashCode());
@@ -80,6 +87,10 @@ public class DaoSpringdbConfig implements EnvironmentAware {
         return sessionFactoryBean;
     }
 
+    /**
+     * myBatis映射管理配置
+     * @return
+     */
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(){
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();

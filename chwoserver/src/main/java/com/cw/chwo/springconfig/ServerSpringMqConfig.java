@@ -12,6 +12,8 @@ import org.springframework.jms.core.JmsTemplate;
 import java.util.Arrays;
 
 /**
+ *      艾特EnableJms：启动注解jms监听器
+ *
  * Created by handl on 2017/6/12.
  */
 @Configuration
@@ -22,6 +24,10 @@ public class ServerSpringMqConfig {
     private Environment environment;
 
 
+    /**
+     * activeMq连接工厂
+     * @return
+     */
     @Bean
     public ActiveMQConnectionFactory connectionFactory(){
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();
@@ -30,6 +36,10 @@ public class ServerSpringMqConfig {
         return connectionFactory;
     }
 
+    /**
+     * 消息模板(类似于redis模板和jdbc模板)
+     * @return
+     */
     @Bean
     public JmsTemplate jmsTemplate(){
         JmsTemplate template = new JmsTemplate();
@@ -38,6 +48,10 @@ public class ServerSpringMqConfig {
         return template;
     }
 
+    /**
+     * jms消息监听工厂(异步方式)
+     * @return
+     */
     @Bean
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();

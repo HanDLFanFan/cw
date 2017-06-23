@@ -16,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @Import({WebSpringContextConfig.class, ServerSpringRootConfig.class})
 //@ImportResource("classpath:xxx.xml")
-//@PropertySource({"classpath:/velocity2.properties"})
 @ComponentScan(basePackages = {"com.cw.chwo"},
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,
                 value = EnableWebMvc.class)})
