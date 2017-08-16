@@ -6,6 +6,7 @@ import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -66,9 +67,10 @@ public class DaoSpringdbConfig implements EnvironmentAware {
         druidDataSource.setTimeBetweenEvictionRunsMillis(Long.valueOf(environment.getProperty("db.timebetweenevictionrunsmillis")));
         //属性类型是字符串，通过别名的方式配置扩展插件
         druidDataSource.setFilters(environment.getProperty("db.filters"));
-        System.out.println("druidDataSource ====="+druidDataSource.hashCode());
+        System.out.println("druidDataSource--dev ====="+druidDataSource.hashCode());
         return druidDataSource;
     }
+
 
     /**
      * Session工厂

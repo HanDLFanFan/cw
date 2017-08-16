@@ -1,5 +1,6 @@
 package com.cw.chwo.service.impl;
 
+import com.cw.chwo.common.annotation.Action;
 import com.cw.chwo.common.jms.MqUserSender;
 import com.cw.chwo.mapper.UserDao;
 import com.cw.chwo.module.User;
@@ -7,6 +8,9 @@ import com.cw.chwo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 
 /**
@@ -24,6 +28,7 @@ public class UserServiceImpl implements UserService{
     private MqUserSender sender;
 
     @Override
+    @Action
     public String reg(User user) {
 
         if(user != null){
@@ -34,6 +39,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Action
 //    @Cacheable("user2")
     public User findUser(String id) {
         /*if (redisTemplate.hasKey(id)){
@@ -54,4 +60,14 @@ public class UserServiceImpl implements UserService{
 //        data.set(userdata);
         return user;
     }
+
+    @PostConstruct
+    public void init(){
+        System.out.println("UserServerice提供服务--开始");
+    }
+    @PreDestroy
+    public void destroy(){
+        System.out.println("UserServerice提供服务--结束");
+    }
+
 }

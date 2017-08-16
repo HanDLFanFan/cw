@@ -112,6 +112,14 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- 文件/liu流 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+
+
         <!--  其他  -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -124,6 +132,11 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
         </dependency>
     </dependencies>
 
