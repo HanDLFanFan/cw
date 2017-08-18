@@ -1,5 +1,6 @@
 package com.cw.chwo.springconfig;
 
+import com.cw.chwo.common.annotationmerge.WiselyConfiguration;
 import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -13,10 +14,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  *      艾特ComponentScan：启动注解扫描(此类中过滤掉mvc[controller]的扫描，mvc[controller]的扫描在SpringWebConfig配置文件)
  *      艾特EnableAspectJAutoProxy：启动AOP自动代理
  */
-@Configuration
 @Import({WebSpringContextConfig.class, ServerSpringRootConfig.class})
 //@ImportResource("classpath:xxx.xml")
-@ComponentScan(basePackages = {"com.cw.chwo"},
+@WiselyConfiguration(basePackages = {"com.cw.chwo"},
         excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION,
                 value = EnableWebMvc.class)})
 @EnableAspectJAutoProxy

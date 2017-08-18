@@ -114,6 +114,16 @@
             <artifactId>shiro-ehcache</artifactId>
         </dependency>
 
+        <!-- 文件/流 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+
         <!-- 其他 -->
         <dependency>
             <groupId>javax.servlet</groupId>

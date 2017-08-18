@@ -1,17 +1,13 @@
 package com.cw.chwo.common.event;
 
+import com.cw.chwo.BaseTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Created by handl on 2017/8/17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = com.cw.chwo.springconfig.ServerSpringRootConfig.class)
-public class EventBeanTest {
+public class EventBeanTest extends BaseTest {
 
     @Autowired
     private EventPublisher eventPublisher;

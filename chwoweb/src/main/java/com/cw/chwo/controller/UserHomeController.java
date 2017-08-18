@@ -28,14 +28,19 @@ public class UserHomeController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("reg")
+    /**
+     * 在springMvc配置文件中通过页面转向处理这种直接跳页面而没有业务处理的操作
+     * @param vo
+     * @return
+     */
+    /*@RequestMapping("reg")
     public String reg(User vo){
-        return "userhome/reg";
-    }
+        return "reg";
+    }*/
 
     @RequestMapping("regok")
     public ModelAndView regok(User vo){
-        ModelAndView modelAndView = new ModelAndView("userhome/regok");
+        ModelAndView modelAndView = new ModelAndView("regok");
         String msg = userService.reg(vo);
         modelAndView.addObject("msg",msg);
         return modelAndView;
@@ -43,7 +48,7 @@ public class UserHomeController {
 
     @RequestMapping("index")
     public String index(){
-        return "userhome/index";
+        return "index";
     }
 
     @RequestMapping(value = "jspfindUser/{id}"/*,produces = MediaType.APPLICATION_JSON_VALUE*/)
@@ -51,7 +56,7 @@ public class UserHomeController {
 
         User user = userService.findUser(id);
         model.addAttribute("user",user);
-        return "userhome/userinfo";
+        return "userinfo";
     }
 
     @RequestMapping(value = "findUser/{id}"/*,produces = MediaType.APPLICATION_JSON_VALUE*/)
@@ -59,7 +64,7 @@ public class UserHomeController {
 
         User user = userService.findUser(id);
         model.addAttribute("user",user);
-        return "velocity/myvelocity";
+        return "myvelocity";
     }
 
     @RequestMapping("restfulData")
@@ -70,5 +75,10 @@ public class UserHomeController {
         list.put("yes","456");
         list.put("ok","789");
         return list;
+    }
+
+    @RequestMapping("/error")
+    public String errorPage() {
+        throw new IllegalArgumentException("this is error");
     }
 }

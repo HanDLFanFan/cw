@@ -57,18 +57,7 @@ public class WebServletLoadInitializer extends
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        //文件上传属性配置
-        regMultipartConfig(registration);
-    }
 
-    /*
-     * 文件上传属性配置
-     * @param registration
-     */
-
-    private void regMultipartConfig(ServletRegistration.Dynamic registration){
-        registration.setMultipartConfig(new MultipartConfigElement("D:/files/",
-                2100000,4200000,0));
     }
 
     /*

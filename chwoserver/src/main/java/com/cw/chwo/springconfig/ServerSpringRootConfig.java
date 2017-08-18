@@ -1,6 +1,7 @@
 package com.cw.chwo.springconfig;
 
 import com.cw.chwo.MarkerInterface;
+import com.cw.chwo.common.annotationmerge.WiselyConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 
@@ -15,18 +16,19 @@ import org.springframework.context.annotation.*;
  *              还可以使用basePackages，配置扫描的目录
  *              还可以设置包含和排除，（可在web项目里查看）
  *      艾特PropertySource：添加properties文件
- *      艾特EnableAspectJAutoProxy：启动AOP自动代理
+ *
  *
  */
-@Configuration
 @Import({ServerSpringContextConfig.class,
             DaoSpringRootConfig.class,
             ServerSpringRedisConfig.class,
-            ServerSpringMqConfig.class})
-@ComponentScan(basePackageClasses = MarkerInterface.class)
+            ServerSpringMqConfig.class,
+            TaskExecutorConfig.class,
+            AspectJAutoProxyConfig.class,
+            TaskSchedulerConfig.class})
+@WiselyConfiguration(basePackageClasses = MarkerInterface.class)
 @PropertySource({"classpath:/redis.properties",
                     "classpath:/mq.properties",
                     "classpath:/system.properties"})
-@EnableAspectJAutoProxy
 public class ServerSpringRootConfig {
 }

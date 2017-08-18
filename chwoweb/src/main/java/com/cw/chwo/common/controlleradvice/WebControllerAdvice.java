@@ -2,6 +2,7 @@ package com.cw.chwo.common.controlleradvice;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  * Created by handl on 2017/5/24.
@@ -21,11 +22,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
             这样所有控制器的异常就能在一个地方进行一致的处理。
  *
  */
-//@ControllerAdvice
+@ControllerAdvice
 public class WebControllerAdvice {
 
-//    @ExceptionHandler
-//    public String exceptionHandler(){
-//        return "error";
-//    }
+    @ExceptionHandler(value = Exception.class)
+    public String exceptionHandler(Exception exception, WebRequest request){
+
+        return "error";
+    }
 }

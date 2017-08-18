@@ -1,5 +1,6 @@
 package com.cw.chwo.springconfig;
 
+import com.cw.chwo.common.annotationmerge.WiselyConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -62,7 +63,7 @@ import redis.clients.jedis.JedisPoolConfig;
              beforeInvocation   boolean         如果为 true 的话，在方法调用之前移除条目。如果为false（默认值）的话，在方法成功调用之后再移除条目
  *
  */
-@Configuration
+@WiselyConfiguration
 @EnableCaching
 public class ServerSpringRedisConfig {
 

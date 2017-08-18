@@ -1,8 +1,11 @@
 package com.cw.chwo.springconfig;
 
+import com.cw.chwo.common.annotationmerge.WiselyConfiguration;
+import com.cw.chwo.common.interceptor.MyInterceptor;
 import com.cw.chwo.module.User;
 import com.cw.chwo.springconfig.viewresolver.Jaxb2MarshallingXmlViewResolver;
 import com.cw.chwo.springconfig.viewresolver.JsonViewResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
@@ -38,10 +38,12 @@ import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
  *
  *          注意：jsp视图的order一定要最大，放到最后执行，多视图解析器order最小，先执行
  */
-@Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.cw.chwo.controller")
+@WiselyConfiguration(basePackages = "com.cw.chwo.controller")
 public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
+
+    @Autowired
+    private MyInterceptor myInterceptor;
 
     /**
      * 配置ContentNegotiatingViewResolver默认的处理类型，本例为html
@@ -97,7 +99,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         //设置优先级
         resolver.setOrder(10);
-        resolver.setPrefix("/WEB-INF/view/");
+        resolver.setPrefix("/WEB-INF/view/userhome/");
         resolver.setSuffix(".jsp");
         //配置可以解释jstl视图的class
         resolver.setViewClass(org.springframework.web.servlet.view.JstlView.class);
@@ -112,7 +114,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     @Bean
     public VelocityConfigurer velocityConfigurer(){
         VelocityConfigurer velocityConfigurer = new VelocityConfigurer();
-        velocityConfigurer.setResourceLoaderPath("/WEB-INF/view/");
+        velocityConfigurer.setResourceLoaderPath("/WEB-INF/view/velocity/");
         velocityConfigurer.setConfigLocation(new ClassPathResource("velocity.properties"));
         return velocityConfigurer;
     }
@@ -137,5 +139,43 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
+    }
+
+    /**
+     * 静态文件访问
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
+    }
+
+    /**
+     * 页面转向，单纯的跳后台转换页面(无任何业务处理)可以通过这种方式处理
+     * @param registry
+     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/userhome/reg").setViewName("reg");
+        registry.addViewController("/toUpload").setViewName("uploadfile");
+        registry.addViewController("/sse").setViewName("sse");
+    }
+
+    /**
+     * 路径参数如果带‘.’的话，‘.’后面的值将被忽略掉，
+     * 通过重写configurePathMatch方法可不忽略‘.’后面的值
+     * @param configurer
+     */
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseSuffixPatternMatch(false);
+    }
+
+    /**
+     * 添加拦截器
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(myInterceptor);
     }
 }

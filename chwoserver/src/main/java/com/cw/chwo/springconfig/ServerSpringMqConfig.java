@@ -1,5 +1,6 @@
 package com.cw.chwo.springconfig;
 
+import com.cw.chwo.common.annotationmerge.WiselyConfiguration;
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ import java.util.Arrays;
  *
  * Created by handl on 2017/6/12.
  */
-@Configuration
+@WiselyConfiguration
 @EnableJms
 public class ServerSpringMqConfig {
 

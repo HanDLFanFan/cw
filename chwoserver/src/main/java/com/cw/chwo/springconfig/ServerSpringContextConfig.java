@@ -1,5 +1,6 @@
 package com.cw.chwo.springconfig;
 
+import com.cw.chwo.common.annotationmerge.WiselyConfiguration;
 import com.cw.chwo.service.UserService;
 import com.cw.chwo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
+
+import java.io.IOException;
 
 /**
  * Created by handl on 2017/5/20.
@@ -32,7 +35,7 @@ import org.springframework.core.io.Resource;
  *           转换成字符串：
  *
  */
-@Configuration
+@WiselyConfiguration
 public class ServerSpringContextConfig {
 
     /**
@@ -58,7 +61,7 @@ public class ServerSpringContextConfig {
     @Value("#{outherClassPro.name}")
     private String outherClassPro;
     //5.注入文件内容
-    @Value("classpath:/OutherClassPro.txt")
+    @Value("classpath:/context.txt")
     private Resource filetext;
     //6.注入网址内容
     @Value("http://www.baidu.com")
@@ -73,7 +76,7 @@ public class ServerSpringContextConfig {
         System.out.println("注入系统属性，osName == "+osName);
         System.out.println("注入运算结果，randomNumber == "+randomNumber);
         System.out.println("注入其他对象属性，outherClassPro == "+outherClassPro);
-        System.out.println("注入文件内容，filetext == "+filetext);
+        System.out.println("注入文件内容，filetext == "+filetext +",文件名称==="+filetext.getFilename());
         System.out.println("注入网页内容，urltext == "+urltext);
         System.out.println("注入配置文件属性，name == "+name);
     }
