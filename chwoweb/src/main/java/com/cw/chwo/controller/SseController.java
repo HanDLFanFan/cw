@@ -2,9 +2,12 @@ package com.cw.chwo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 
 /**
  * Created by handl on 2017/8/18.
@@ -13,10 +16,11 @@ import java.util.Random;
  *
  * SSE：要求支持EventSource对象的浏览器才可以
  *
- * produces = "text/ecent-stream":媒体类型为text/ecent-stream，这是服务器端SSE的支持
+ * produces = "text/event-stream":媒体类型为text/event-stream，这是服务器端SSE的支持
  *
+ *发送的数据前面格式是：“data:”
  */
-@RestController
+@Controller
 public class SseController {
 
     /**
@@ -28,15 +32,24 @@ public class SseController {
      *
      * @return
      */
-    @RequestMapping(value = "/push",produces = "text/ecent-stream")
-    public String push(){
-        Random r = new Random();
+    @RequestMapping(value = "/push")
+    public void push(HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Content-Type", "text/event-stream");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setCharacterEncoding("UTF-8");
+
+        String id = new Date().toString();
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
+            response.getWriter().println("id:" + id);
+            // 向客户端写两行数据
+            response.getWriter().println("data:server-sent event is working.");
+            response.getWriter().println("data:test server-sent event multi-line data");
+            response.getWriter().println();
+            response.getWriter().flush();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return "SSE---"+System.currentTimeMillis()+"---"+r.nextInt()+"\n\n";
+
     }
 
 }

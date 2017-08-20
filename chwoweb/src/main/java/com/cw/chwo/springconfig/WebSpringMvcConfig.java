@@ -147,7 +147,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/js/");
     }
 
     /**
@@ -159,6 +159,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         registry.addViewController("/userhome/reg").setViewName("reg");
         registry.addViewController("/toUpload").setViewName("uploadfile");
         registry.addViewController("/sse").setViewName("sse");
+        registry.addViewController("/servletasync").setViewName("servletasync");
     }
 
     /**

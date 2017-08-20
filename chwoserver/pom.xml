@@ -52,7 +52,11 @@
             <groupId>${springframework.name}</groupId>
             <artifactId>spring-tx</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>${springframework.name}</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
 
 
         <!--  Cache  -->

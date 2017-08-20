@@ -20,7 +20,7 @@ public class SchedulerTaskService {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 5000)
+//    @Scheduled(fixedRate = 5000)
     public void fixedRateTime(){
         System.out.println("fixedRate任务，每隔五秒执行一次----"+dateFormat.format(new Date()));
     }

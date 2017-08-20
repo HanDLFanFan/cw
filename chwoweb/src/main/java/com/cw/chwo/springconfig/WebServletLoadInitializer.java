@@ -57,7 +57,8 @@ public class WebServletLoadInitializer extends
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-
+        //开启servlet3.0异步方法支持
+        registration.setAsyncSupported(true);
     }
 
     /*

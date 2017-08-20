@@ -31,14 +31,14 @@ public class WebServletInitializer implements WebApplicationInitializer{
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
 
-        //注册servlet
+       /* //注册servlet
         regServlet(servletContext);
         //加载Filter
         initFilter();
         //注册Filter
         regFilter(servletContext);
         //注册Listen
-        regListener(servletContext);
+        regListener(servletContext);*/
     }
 
     /*
