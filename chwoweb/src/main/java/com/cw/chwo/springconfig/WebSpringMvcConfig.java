@@ -5,6 +5,7 @@ import com.cw.chwo.common.interceptor.MyInterceptor;
 import com.cw.chwo.module.User;
 import com.cw.chwo.springconfig.viewresolver.Jaxb2MarshallingXmlViewResolver;
 import com.cw.chwo.springconfig.viewresolver.JsonViewResolver;
+import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,12 +14,20 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.accept.ContentNegotiationManager;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafView;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ITemplateResolver;
+import javax.servlet.ServletContext;
 
 /**
  * Created by handl on 2017/5/21.
@@ -90,12 +99,14 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         return new JsonViewResolver();
     }
 
+
+    /**************************     velocity视图配置开始    *********************************/
     /**
-     * jsp配置(内部资源视图)
+     * jsp视图配置(内部资源视图)
      * @return
      */
     @Bean
-    public ViewResolver jspViewResolver(){
+    public InternalResourceViewResolver jspViewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         //设置优先级
         resolver.setOrder(10);
@@ -106,9 +117,12 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         resolver.setExposeContextBeansAsAttributes(true);
         return resolver;
     }
+    /**************************     jsp视图配置完成    *********************************/
 
+
+    /**************************     velocity视图配置开始    *********************************/
     /**
-     * velocity配置
+     * velocity配置，设置模板属性
      * @return
      */
     @Bean
@@ -120,17 +134,63 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     }
 
     /**
-     * velocity视图
+     * velocity视图,视图配置
      * @return
      */
     @Bean
-    public ViewResolver velocityViewResolver(){
+    public VelocityViewResolver velocityViewResolver(){
         VelocityViewResolver viewResolver = new VelocityViewResolver();
-        viewResolver.setOrder(2);
+        viewResolver.setOrder(9);
         viewResolver.setSuffix(".vm");
         viewResolver.setContentType("text/html;charset=UTF-8");
         return viewResolver;
     }
+    /**************************     velocity视图配置完成    *********************************/
+
+    /**************************     ThymeLeaf视图配置开始    *********************************/
+    /**
+     * SpringResourceTemplateResolver ，设置模板属性
+     * @return
+     */
+    @Bean
+    public ITemplateResolver templateResolver(){
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setPrefix("/WEB-INF/view/thymeleaf/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setCacheable(false);
+        templateResolver.setCharacterEncoding("UTF-8");
+        return templateResolver;
+    }
+
+    /**
+     * SpringTemplateEngine：用来驱动在springmvc下使用thymeleaf模板
+     * @return
+     */
+    @Bean
+    public SpringTemplateEngine templateEngine(){
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        return templateEngine;
+    }
+
+    /**
+     * ThymeleafViewResolver：设置thymeleaf视图属性
+     * @return
+     */
+    @Bean
+    public ThymeleafViewResolver viewResolver(){
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setViewClass(ThymeleafView.class); //默认设置
+        viewResolver.setOrder(8);
+        return viewResolver;
+    }
+
+
+    /**************************     ThymeLeaf视图配置完成    *********************************/
+
 
     /**
      * 静态资源处理
