@@ -18,7 +18,7 @@ public class ThymeleafController {
         user.setName("hahahah");
         user.setAge(16);
         model.addAttribute("user",user);
-        return "thymeleaf";
+        return "thymeleaf/thymeleaf";
     }
 
 }

@@ -5,16 +5,12 @@ import com.cw.chwo.common.interceptor.MyInterceptor;
 import com.cw.chwo.module.User;
 import com.cw.chwo.springconfig.viewresolver.Jaxb2MarshallingXmlViewResolver;
 import com.cw.chwo.springconfig.viewresolver.JsonViewResolver;
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.accept.ContentNegotiationManager;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
@@ -25,9 +21,10 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafView;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
-import javax.servlet.ServletContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by handl on 2017/5/21.
@@ -45,7 +42,11 @@ import javax.servlet.ServletContext;
  *          jaxb2MarshallingXmlViewResolver()：配置xml视图解析类型
  *          jsonViewResolver()：配置json视图解析类型
  *
- *          注意：jsp视图的order一定要最大，放到最后执行，多视图解析器order最小，先执行
+ *
+ *
+ *          注意：配置configurePathMatch方法后，会导致数据试图失效(.xml/.json)
+ *          注意：jsp视图和thymeleaf视图在匹配不成功时也会返回true，
+ *                  因此可以通过设置ViewResolver.setViewNames()方法来解决冲突问题
  */
 @EnableWebMvc
 @WiselyConfiguration(basePackages = "com.cw.chwo.controller")
@@ -71,10 +72,15 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
      * @return
      */
     @Bean
-    public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager){
+    public ContentNegotiatingViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager){
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
         resolver.setOrder(1);
         resolver.setContentNegotiationManager(manager);
+
+        List<ViewResolver> list = new ArrayList<>();
+        list.add(jaxb2MarshallingXmlViewResolver());
+        list.add(jsonViewResolver());
+        resolver.setViewResolvers(list);
         return resolver;
     }
 
@@ -109,8 +115,12 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     public InternalResourceViewResolver jspViewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         //设置优先级
-        resolver.setOrder(10);
-        resolver.setPrefix("/WEB-INF/view/userhome/");
+        resolver.setOrder(9);
+//        resolver.setPrefix("/WEB-INF/view/userhome/");
+
+        resolver.setPrefix("/WEB-INF/view/");
+        resolver.setViewNames("userhome*");
+
         resolver.setSuffix(".jsp");
         //配置可以解释jstl视图的class
         resolver.setViewClass(org.springframework.web.servlet.view.JstlView.class);
@@ -128,7 +138,8 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     @Bean
     public VelocityConfigurer velocityConfigurer(){
         VelocityConfigurer velocityConfigurer = new VelocityConfigurer();
-        velocityConfigurer.setResourceLoaderPath("/WEB-INF/view/velocity/");
+//        velocityConfigurer.setResourceLoaderPath("/WEB-INF/view/velocity/");
+        velocityConfigurer.setResourceLoaderPath("/WEB-INF/view/");
         velocityConfigurer.setConfigLocation(new ClassPathResource("velocity.properties"));
         return velocityConfigurer;
     }
@@ -140,8 +151,9 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     @Bean
     public VelocityViewResolver velocityViewResolver(){
         VelocityViewResolver viewResolver = new VelocityViewResolver();
-        viewResolver.setOrder(9);
+        viewResolver.setOrder(7);
         viewResolver.setSuffix(".vm");
+        viewResolver.setViewNames("velocity*");
         viewResolver.setContentType("text/html;charset=UTF-8");
         return viewResolver;
     }
@@ -155,7 +167,10 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
     @Bean
     public ITemplateResolver templateResolver(){
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix("/WEB-INF/view/thymeleaf/");
+//        templateResolver.setPrefix("/WEB-INF/view/thymeleaf/");
+
+        templateResolver.setPrefix("/WEB-INF/view/");
+
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setCacheable(false);
@@ -185,6 +200,7 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
         viewResolver.setCharacterEncoding("UTF-8");
         viewResolver.setViewClass(ThymeleafView.class); //默认设置
         viewResolver.setOrder(8);
+        viewResolver.setViewNames(new String[]{"thymeleaf*"});
         return viewResolver;
     }
 
@@ -216,7 +232,6 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/userhome/reg").setViewName("reg");
         registry.addViewController("/toUpload").setViewName("uploadfile");
         registry.addViewController("/sse").setViewName("sse");
         registry.addViewController("/servletasync").setViewName("servletasync");
@@ -226,11 +241,15 @@ public class WebSpringMvcConfig extends WebMvcConfigurerAdapter{
      * 路径参数如果带‘.’的话，‘.’后面的值将被忽略掉，
      * 通过重写configurePathMatch方法可不忽略‘.’后面的值
      * @param configurer
+     *
+     * 注意注意注意注意注意注意：配置configurePathMatch方法后，会导致数据试图失效(.xml/.json)
+     * 注意注意注意注意注意注意：配置configurePathMatch方法后，会导致数据试图失效(.xml/.json)
+     * 注意注意注意注意注意注意：配置configurePathMatch方法后，会导致数据试图失效(.xml/.json)
      */
-    @Override
+    /*@Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         configurer.setUseSuffixPatternMatch(false);
-    }
+    }*/
 
     /**
      * 添加拦截器

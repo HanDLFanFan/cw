@@ -10,8 +10,8 @@ import org.springframework.web.context.request.async.DeferredResult;
  *
  * Servlet3.0异步方法定时服务
  *
- * 在ServletAsyncService里产生的DeferredResult给Controller使用，
  * 通过@Scheduled注解的方法定时更新DeferredResult
+ * 在ServletAsyncService里产生的DeferredResult给Controller使用，
  *
  *
  */

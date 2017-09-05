@@ -15,6 +15,9 @@ import java.util.Map;
 
 /**
  * Created by handl on 2017/5/21.
+ *
+ * 注意：在springMvc配置文件中通过页面转向处理这种直接跳页面而没有业务处理的操作
+ *
  */
 @Controller
 @RequestMapping("userhome")
@@ -24,18 +27,18 @@ public class UserHomeController {
     private UserService userService;
 
     /**
-     * 在springMvc配置文件中通过页面转向处理这种直接跳页面而没有业务处理的操作
+     * 测试mq
      * @param vo
      * @return
      */
-    /*@RequestMapping("reg")
+    @RequestMapping("reg")
     public String reg(User vo){
         return "reg";
-    }*/
+    }
 
     @RequestMapping("regok")
     public ModelAndView regok(User vo){
-        ModelAndView modelAndView = new ModelAndView("regok");
+        ModelAndView modelAndView = new ModelAndView("userhome/regok");
         String msg = userService.reg(vo);
         modelAndView.addObject("msg",msg);
         return modelAndView;
@@ -43,7 +46,7 @@ public class UserHomeController {
 
     @RequestMapping("index")
     public String index(){
-        return "index";
+        return "userhome/index";
     }
 
     @RequestMapping(value = "jspfindUser/{id}"/*,produces = MediaType.APPLICATION_JSON_VALUE*/)
@@ -51,7 +54,7 @@ public class UserHomeController {
 
         User user = userService.findUser(id);
         model.addAttribute("user",user);
-        return "userinfo";
+        return "userhome/userinfo";
     }
 
     @RequestMapping(value = "findUser/{id}"/*,produces = MediaType.APPLICATION_JSON_VALUE*/)
@@ -59,7 +62,7 @@ public class UserHomeController {
 
         User user = userService.findUser(id);
         model.addAttribute("user",user);
-        return "myvelocity";
+        return "velocity/myvelocity";
     }
 
     @RequestMapping("restfulData")
