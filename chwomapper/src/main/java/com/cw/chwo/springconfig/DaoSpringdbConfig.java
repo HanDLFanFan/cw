@@ -2,6 +2,7 @@ package com.cw.chwo.springconfig;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
@@ -84,13 +85,16 @@ public class DaoSpringdbConfig implements EnvironmentAware {
         System.out.println("DataSource ====="+dataSource.hashCode());
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
-//        sessionFactoryBean.setTypeAliasesPackage("com.cw.chwo.mapper");
-        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
+        //xml配置
+//        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
         return sessionFactoryBean;
     }
 
     /**
      * myBatis映射管理配置
+     * 配置mapper包路径,
+     * 如果是xml配置在sqlSessionFactory中配置，
+     * 如果是基于注解咋直接在mapper方法上注解
      * @return
      */
     @Bean
